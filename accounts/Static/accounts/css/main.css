@@ -6,9 +6,56 @@ body{
     margin: 60px;
     background-color: #e5e5c3;
     padding: 0px ;
+    font-size: 130%;
     font-family: "Times New Roman", Tahoma;
 }
 
 #mynav{
     border: 2px dashed rosybrown;
+}
+
+.endcolumn{
+    border-left: 2px solid black;
+}
+
+.main-div{
+    margin-right: 100px;
+    border: 2px dashed rosybrown;
+    margin-left: 100px;
+    padding: 20px;
+    background-color: #282a31;
+    color: #FFEB70;
+    border-radius: 20px;
+}
+
+.second-div{
+    background-color: rgba(32, 12, 69, 0.59);
+    padding: 20px 20px 10px 10px;
+    border: 2px dotted white;
+    border-radius: 5px;
+    margin:0 20px ;
+    border-bottom: 5px dashed #2b3035;
+}
+
+.divlabel{
+    color:white;
+    background-color: rgb(89, 39, 171);
+}
+
+.divans{
+    color: white;
+    background-color: #cd3c3c
+}
+
+.change-btn{
+    margin: 20px 20px 5px 10px;
+    color: #b8df10;
+    font-size: 110%;
+    background-color: #390879;
+}
+.change-btn:hover{
+    background-color: #f8ce46;
+    color: #006eff;
+    font-weight: bold;
+
 }

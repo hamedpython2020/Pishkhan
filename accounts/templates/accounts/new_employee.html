@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>کارمند جدید</title>
-</head>
-<body>
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ employee }}
+{% extends "accounts/Base_template_accounts.html" %}
+{% block title %}
+    کارمند جدید
+{% endblock %}
 
-    <button type="submit">
-        confirm
-    </button>
-</form>
-</body>
-</html>
+{% block main-content %}
+<div class="main-div">
+        <div class="second-div text-center row ">
+            <form class="form-group d-flex flex-md-column" method="post">
+                {{ employee }}
+            </form>
+        </div>
+    </div>{% endblock %}

@@ -1,12 +1,48 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ prof.l_name }}</title>
-</head>
-<body>
-    <div>
-        {{ prof }}
+{% extends "accounts/Base_template_accounts.html" %}
+
+{% block title %}
+    {{ obj.l_name }}
+{% endblock %}
+
+{% block main-content %}
+    <div class="main-div">
+        <div class="second-div text-center row ">
+            <div class="col-md-9 row">
+                <div class="col-3">
+                    <p class=" divlabel rounded">نام و نام خانوادگی : </p>
+                </div>
+                <div class="col-md-3 "><hr><br>
+                    <P class="divans rounded">{{ obj.l_name}}</P>
+                </div>
+                <div class="col-md-3">
+                    <p class=" divlabel rounded"> کد ملی  :</p>
+                </div>
+                <div class="col-md-3 endcolumn"><hr></br>
+                    <p class="divans rounded">{{ obj.id_code }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p class=" divlabel rounded"> تاریخ عضویت  :</p>
+                </div>
+                <div class="col-md-3"><hr><br>
+                   <p class="divans rounded">{{ obj.join_time|date:"Y / m / d"}}</p>
+                </div>
+                <div class="col-md-3">
+                   <p class=" divlabel rounded"> نام کاربری :</p>
+                </div>
+                <div class="col-md-3 endcolumn"><hr><br>
+                   <p class="divans rounded">{{ obj.user.username}}</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="m-1 px-5 bg-dark">
+                    <img class="" src="{{ obj.picture.url }}"><br>
+                    hello
+                </div>
+            </div>
+        </div>
+        <div class="row flex-row justify-content-end">
+            <a class="btn change-btn col-md-2" href="#">تغیر پسوورد</a>
+            <a class="btn change-btn col-md-2" href="#">تغیر پسوورد</a>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}
