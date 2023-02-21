@@ -1,0 +1,14 @@
+
+/*color 1 --> #282a31*/
+/*color 2 --> #f8ce46*/
+
+body{
+    margin: 60px;
+    background-color: #e5e5c3;
+    padding: 0px ;
+    font-family: "Times New Roman", Tahoma;
+}
+
+#mynav{
+    border: 2px dashed rosybrown;
+}

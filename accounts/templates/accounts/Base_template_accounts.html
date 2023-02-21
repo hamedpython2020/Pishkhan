@@ -11,37 +11,48 @@
     <link rel="stylesheet" type="text/css" href="{% static "accounts/css/main.css" %}" >
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg ">
-        <div class="container-fluid my-nav">
-            <a class="navbar-brand" id="brand" href="{% url "index" %}">پیشخوان</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg bg-body-tertiary mb-3 rounded" data-bs-theme="dark" id="mynav">
+        <div class="container-fluid py-3">
+            <a class="navbar-brand text-warning" href="#">پیشخوان</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{% url "index" %}">صفحه اصلی </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link active" href="{% url "works:services_new" %}">خدمات</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link active" href="{% url "works:services_new" %}">پرداخت</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item active dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown link
+                            دیگر خدمات
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <ul class="dropdown-menu justify-content-center">
+                            <li><a class="dropdown-item" href="{% url "accounts:project_new" %}">ثبت پروژه</a></li>
+                            <li><a class="dropdown-item" href="{% url "accounts:payment_list" %}">لیست پرداخت ها</a></li>
+                            <li><a class="dropdown-item" href="{% url "accounts:project_list" %}">لیست  پروژه ها</a></li>
+                            {% if user.authenticated %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">{{ user }}</a></li>
+                            {% else %}
                         </ul>
                     </li>
                 </ul>
+                <a class="btn btn-info mx-3" href="{% url "accounts:login" %}">ورود</a>
+                <a class="btn btn-info mx-3" href="{% url "accounts:login" %}">ثبت نام</a>
+                {% endif %}
             </div>
         </div>
     </nav>
+
+
+
+
 
     {% block main-content %}
         <div class="alert alert-danger text-center">
@@ -63,7 +74,6 @@
 {#                          This is styl file#}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script src="{% static "accounts/js/bootstrap.bundle.js" %}"></script>
 </body>
 </html>
