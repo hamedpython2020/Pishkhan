@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>پرداخت</title>
+</head>
+<body>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ pay }}
+
+    <button type="submit">
+        confirm
+    </button>
+</form>
+</body>
+</html>

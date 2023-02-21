@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>پروژه جدید</title>
+</head>
+<body>
+<form method="Post" action="" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{ project }}
+    {{ project.errors }}
+    <button type="submit">
+        confirm
+    </button>
+</form>
+</body>
+</html>

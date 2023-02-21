@@ -22,7 +22,7 @@ class employee(models.Model):
                                 help_text="لطفا یک عکس با  فامیل خود آپلود کنید")
 
     def __str__(self):
-        return "employee {}".format(self.l_name)
+        return "{}".format(self.l_name)
     pass
 
 
@@ -35,6 +35,7 @@ class project(models.Model):
     code_p = models.CharField("کد نوسازی", null=False, default='0-0-0-0-0-0', max_length=50)
     code_erg = models.CharField("کد ارجاع", null=False, default='0', max_length=50)
     add_time = models.DateTimeField('زمان ثبت', auto_now_add=True)
+    bill = models.IntegerField('صورتحساب', null=False, default=0)
     construction = 7
     land = 8
     project_finish = 9
@@ -60,7 +61,7 @@ class project(models.Model):
     manager = models.CharField("سازنده", null=False, max_length=50)
 
     def __str__(self):
-        return "{0}" + "برای" + "{}".format(self.manager, self.code_p)
+        return self.code_p
 
     def pay_service(self, amount):
         self.bill -= amount
@@ -81,10 +82,10 @@ class payment(models.Model):
         verbose_name = 'پرداخت'
         verbose_name_plural = 'پرداخت'
         pass
-    manager = models.ForeignKey('project', verbose_name="کد نوسازی", on_delete=models.PROTECT, null=False)
+    project = models.ForeignKey('project', verbose_name="کد نوسازی", on_delete=models.PROTECT, null=False)
     value = models.IntegerField('مبلغ', null=False, default=0)
     date = models.DateField("تاریخ", null=False, default=timezone.now)
 
     def __str__(self):
-        return "{} pay {}".format(self.manager, self.value)
+        return "{} --> {}".format(self.project, self.value)
     pass

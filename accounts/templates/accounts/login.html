@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ورود</title>
+</head>
+<body>
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="username">username</label>
+    <input type="text" name="username">
+    <label for="password">password</label>
+    <input type="password" name="password">
+    <button type="submit">ورود</button>
+</form>
+</body>
+</html>

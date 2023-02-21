@@ -27,10 +27,9 @@ class Services(models.Model):
     description = models.TextField("خدمات متفرقه", blank=True)
     project = models.ForeignKey('accounts.project', verbose_name="پروژه", null=False, on_delete=models.PROTECT)
     date = models.DateField("تاریخ درخواست", default=timezone.now, null=False)
-    manager = models.CharField("مالک", null=False, max_length=50)
 
     def __str__(self):
-        return "{} for {}".format(self.define_services, self.manager)
+        return "{1}-->{0}".format(self.project, self.define_services)
     pass
 
 
