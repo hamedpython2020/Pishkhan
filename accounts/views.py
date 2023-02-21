@@ -70,13 +70,15 @@ def Newemployee(request):
     if request.user == None:
         return HttpResponseRedirect(reverse('login'))
     if request.method == 'POST':
-        employee = EmployeeForm(request.POST, request.FILE)
+        employee = EmployeeForm(request.POST, request.FILES)
         if employee.is_valid():
-            employee.save()
+            data = employee.save(commit=False)
+            data.user = request.user
+            data.save()
             user = request.user
             user.is_staff = True
             user.save()
-            HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('index'))
             pass
     else:
         employee = EmployeeForm()

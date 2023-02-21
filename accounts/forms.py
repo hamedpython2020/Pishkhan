@@ -11,7 +11,7 @@ class NewUser(UserCreationForm):
 class EmployeeForm(forms.ModelForm):
     class Meta:
         model = employee
-        exclude = []
+        exclude = ['user']
         pass
     pass
 

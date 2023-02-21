@@ -25,6 +25,9 @@ body{
     padding: 20px;
     background-color: #282a31;
     color: #FFEB70;
+    overflow: auto;
+    min-width: 20cm;
+    text-overflow: ellipsis;
     border-radius: 20px;
 }
 
@@ -37,13 +40,23 @@ body{
     border-bottom: 5px dashed #2b3035;
 }
 
+.data{
+    min-width: 10px;
+    overflow: auto;
+    text-overflow: revert;
+}
+
 .divlabel{
     color:white;
+    overflow: auto;
+    text-overflow: ellipsis;
     background-color: rgb(89, 39, 171);
 }
 
 .divans{
     color: white;
+    overflow: auto;
+    text-overflow: ellipsis;
     background-color: #cd3c3c
 }
 
@@ -58,4 +71,8 @@ body{
     color: #006eff;
     font-weight: bold;
 
+}
+
+.modal-btn{
+    width: 20px;
 }

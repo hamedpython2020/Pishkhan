@@ -5,9 +5,41 @@
 
 {% block main-content %}
 <div class="main-div">
-        <div class="second-div text-center row ">
-            <form class="form-group d-flex flex-md-column" method="post">
-                {{ employee }}
-            </form>
-        </div>
-    </div>{% endblock %}
+    <div class="second-div text-center row ">
+        <form class="form-group flex-row" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label class="label mb-md-3" for="{{ employee.user.label }}">
+                کاربر :
+            </label>
+            <div class="input-group justify-content-center" >
+                {{user.username}}
+            </div>
+            <label class="label my-md-3" for="{{ employee.id_code.label }}">
+                {{ employee.id_code.label }} :
+            </label>
+            <div class="input-group justify-content-center" >
+                {{employee.id_code }}
+                {{employee.id_code.errors }}
+            </div>
+            <label class="label my-md-3" for="{{ employee.l_name.label }}">
+                    {{ employee.l_name.label }} :
+            </label>
+            <div class="input-group justify-content-center" >
+                {{employee.l_name }}
+                {{employee.l_name.errors }}
+            </div>
+            <label class="label my-md-3" for="{{ employee.picture.label }}">
+                    {{ employee.picture.label }} :
+            </label>
+            <div class="input-group justify-content-center" >
+                {{employee.picture }}
+                {{employee.picture.errors }}
+            </div>
+            <div class="row m-3 d-flex justify-content-between">
+                <button class="btn btn-outline-danger col-2" onClick="window.location.href=window.location.href">پاک سازی صفحه</button>
+                <button type="submit" class="col-2 mx-5 btn-outline-success btn">ذخیره</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
