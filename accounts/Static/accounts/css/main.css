@@ -23,7 +23,7 @@ body{
     border: 2px dashed rosybrown;
     margin-left: 100px;
     padding: 20px;
-    background-color: #282a31;
+    background-color: #ffeb70;
     color: #FFEB70;
     overflow: auto;
     min-width: 20cm;
@@ -32,12 +32,11 @@ body{
 }
 
 .second-div{
-    background-color: rgba(32, 12, 69, 0.59);
+    background-color: #404752;
     padding: 20px 20px 10px 10px;
-    border: 2px dotted white;
     border-radius: 5px;
     margin:0 20px ;
-    border-bottom: 5px dashed #2b3035;
+    /*border-bottom: 5px dashed #2b3035;*/
 }
 
 .data{
@@ -75,4 +74,9 @@ body{
 
 .modal-btn{
     width: 20px;
+}
+
+
+thierd_part{
+    background-color: #404752;
 }

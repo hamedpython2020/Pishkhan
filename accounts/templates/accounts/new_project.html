@@ -1,17 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>پروژه جدید</title>
-</head>
-<body>
-<form method="Post" action="" enctype="multipart/form-data" >
-    {% csrf_token %}
-    {{ project }}
-    {{ project.errors }}
-    <button type="submit">
-        confirm
-    </button>
-</form>
-</body>
-</html>
+{% extends "accounts/Base_template_accounts.html" %}
+{% block title %}
+    پروژه جدید
+{% endblock %}
+
+
+{% block main-content %}
+    <div class="main-div">
+        <div class="second-div text-center row ">
+            <form class="form-group flex-row" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label class="label mb-md-3" for="{{ project.code_p.label }}">
+                    کد نوسازی :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{project.code_p}}
+                    {{project.code_p.errors}}
+                </div>
+                <label class="label my-md-3" for="{{ project.code_erg.label }}">
+                    {{ project.code_erg.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{project.code_erg }}
+                    {{project.code_erg.errors }}
+                </div>
+                <label class="label my-md-3" for="{{ project.status.label }}">
+                        {{ project.status.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{project.status }}
+                    {{project.status.errors }}
+                </div>
+                <label class="label my-md-3" for="{{ project.description.label }}">
+                        {{ project.description.label }} :
+                </label>
+                <div class="input-group justify-content-center input-text" >
+                    {{project.description }}
+                    {{project.description.errors }}
+                </div>
+                <label class="label my-md-3" for="{{ project.manager.label }}">
+                        {{project.manager.label }} :
+                </label>
+                <div class="input-group justify-content-center input-text" >
+                    {{project.manager }}
+                    {{project.manager.errors }}
+                </div>
+                <label class="label my-md-3" for="{{ project.bill.label }}">
+                        {{ project.bill.label }} :
+                </label>
+                <div class="input-group justify-content-center input-text" >
+                    {{project.bill }}
+                    {{project.bill.errors }}
+                </div>
+                <div class="row m-3 d-flex justify-content-between">
+                    <button class="btn btn-outline-danger col-2" onClick="window.location.href=window.location.href">پاک سازی صفحه</button>
+                    <button type="submit" class="col-2 mx-5 btn-outline-success btn">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,11 +1,20 @@
+import os
+from datetime import datetime, date
+import random
+
 from PIL.ImagePath import Path
+from captcha import image
+from captcha.image import ImageCaptcha
 from django.contrib.auth import logout, login, authenticate
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils import timezone
+
 from accounts.forms import EmployeeForm, ProjectForm, NewUser, PayForm
 from accounts.models import employee, project, payment
 
+########## My functions ############
 
 ########### Home Page #############
 
@@ -35,15 +44,24 @@ def Signup(request):
 
 
 def Login(request):
-    if request.method == "POST":
+    if request.method == "GET":
+        context = {
+        }
+    else:
         username = request.POST.get('username')
         password = request.POST.get('password')
+        # cap = request.POST.get('cap')
+        # if cap == captcha_t:
+        #     os.remove(path)
+        #     status = 0
         user = authenticate(request, password=password, username=username)
+        # givcap(1)
         if user is None:
             context = {
                 'username': username,
                 'error': 'موجود نیست'
             }
+
         else:
             login(request, user)
             if request.GET.get('next'):
@@ -51,9 +69,14 @@ def Login(request):
             else:
                 return HttpResponseRedirect(reverse(viewname='index'))
             pass
-        pass
-    else:
-        context = {}
+        # else:
+        #     os.remove(path)
+        #     givcap()
+        #     status = 0
+        #     context = {
+        #         'error': 'wrong captcha'
+        #     }
+        # pass
     return render(request, "accounts/login.html", context)
 
 

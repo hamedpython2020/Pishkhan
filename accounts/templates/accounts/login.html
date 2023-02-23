@@ -1,17 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ورود</title>
-</head>
-<body>
-<form action="" method="post">
-    {% csrf_token %}
-    <label for="username">username</label>
-    <input type="text" name="username">
-    <label for="password">password</label>
-    <input type="password" name="password">
-    <button type="submit">ورود</button>
-</form>
-</body>
-</html>
+{% extends "accounts/Base_template_accounts.html" %}
+{% load static %}
+
+{% block title %}
+    ورود
+{% endblock %}
+
+
+{% block main-content %}
+    <div class="main-div bg-warning">
+        <div class="second-div text-center p-4 ">
+            <form class="row flex-md-row justify-content-center p-4 my-1 " method="post">{% csrf_token %}
+                <label class="col-md-2 my-3 " for="username" > نام کاربری :  </label>
+                <input class="col-md-4 my-3 " type="text" name="username" placeholder="نام کاربری را وارد کنید">
+                <label class="col-md-2 my-3 " for="password" > پسوورد :  </label>
+                <input type="password" class="col-md-4 my-3 " name="password" placeholder="پسوورد را وارد کنید">
+                <br><hr class="text-light mt-3 p-1">
+{#                <label class="col-md-3 my-3 " for="password" > کد امنیتی :  </label>#}
+{#                <img class="col-md-3 mx-2" src="{%  static "captcha.png"%}" height="50" width="30">#}
+{#                <input type="number" maxlength="4" class="col-md-4 my-3 " name="cap" placeholder="کپچا را وارد کنید" autocomplete="none">#}
+                <button class="btn btn-outline-success col-md-3 my-3" type="submit">ورود</button>
+            </form>
+            {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

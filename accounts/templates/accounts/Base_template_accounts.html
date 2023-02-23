@@ -29,7 +29,7 @@
                         <a class="nav-link active" href="{% url "works:services_new" %}">خدمات</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url "works:services_new" %}">پرداخت</a>
+                        <a class="nav-link active" href="{% url "accounts:new_payment" %}">پرداخت</a>
                     </li>
                     <li class="nav-item active dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,7 +41,13 @@
                             <li><a class="dropdown-item" href="{% url "accounts:project_list" %}">لیست  پروژه ها</a></li>
                             {% if user.is_authenticated %}
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url "accounts:employee" employee_id=user.employee.id %}"> {{ user.username }} </a></li>
+                            <li><a class="dropdown-item"
+                                   {% if user.employee.id %}
+                                   href="{% url "accounts:employee" employee_id=user.employee.id %}"
+                                   {% else %}
+                                   href="#"
+                                   {% endif %}
+                            > {{ user.username }} </a></li>
                             {% endif %}
                         </ul>
                     </li>
@@ -50,18 +56,14 @@
                 <a class="btn btn-danger mx-3" href="{% url "accounts:logout" %}">خروج</a>
                 {% else %}
                 <a class="btn btn-info mx-3" href="{% url "accounts:login" %}">ورود</a>
-                <a class="btn btn-info mx-3" href="{% url "accounts:login" %}">ثبت نام</a>
+                <a class="btn btn-info mx-3" href="{% url "accounts:signup" %}">ثبت نام</a>
                 {% endif %}
             </div>
         </div>
     </nav>
 
-
-
-
-
     {% block main-content %}
-        <div class="alert alert-danger text-center">
+        <div class="alert alert-success text-center">
             nothing for show
         </div>
     {% endblock %}
