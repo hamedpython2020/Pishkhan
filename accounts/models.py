@@ -85,6 +85,7 @@ class payment(models.Model):
     project = models.ForeignKey('project', verbose_name="کد نوسازی", on_delete=models.PROTECT, null=False)
     value = models.IntegerField('مبلغ', null=False, default=0)
     date = models.DateField("تاریخ", null=False, default=timezone.now)
+    description = models.TextField(verbose_name="بابت", blank=True)
 
     def __str__(self):
         return "{} --> {}".format(self.project, self.value)

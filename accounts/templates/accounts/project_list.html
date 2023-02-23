@@ -1,12 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>لسیت پروژه ها</title>
-</head>
-<body>
-    <div>
-        {{ projects }}
+{% extends "accounts/Base_template_accounts.html" %}
+
+{% block title %}
+    لیست پروژه ها
+{% endblock %}
+
+{% block main-content %}
+    <div class="main-div">
+        <div class=" second-div p-4 text-center">
+            <table class="table table-dark table-hover table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ردیف</th>
+                    <th scope="col">کد نوسازی</th>
+                    <th scope="col">کد ارجاع</th>
+                    <th scope="col">کارفرما</th>
+                    <th scope="col">وضعیت</th>
+                    <th scope="col">صورتحساب</th>
+                    <th scope="col">تاریخ ثبت</th>
+                    <th scope="col">توضیحات</th>
+                    <th scope="col">نمایش</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in objects %}
+                        <tr class="">
+                            <th scope="row">1</th>
+                            <td>{{ obj.code_p }}</td>
+                            <td>{{ obj.code_erg }}</td>
+                            <td>{{ obj.manager }}</td>
+                            <td>{{ obj.status }}</td>
+                            <td>{{ obj.bill }}</td>
+                            <td>{{ obj.add_time|date:"Y/M/d" }}</td>
+                            <td>
+                                {% if obj.description %}
+                                    {{ obj.description }}
+                                {% else %}
+                                    <hr>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="{% url "accounts:project" project_id=obj.id %}">
+                                    نمایش
+                                </a>
+                            </td>
+                        </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class=" d-flex justify-content-center text-center ">
+                <p class="alert alert-info my-alert">تعداد {{ num }} پروژه یافت شد </p>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

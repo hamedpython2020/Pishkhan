@@ -1,12 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>لیست پرداختی ها</title>
-</head>
-<body>
-    <div>
-        {{ pay }}
+{% extends "accounts/Base_template_accounts.html" %}
+
+{% block title %}
+    لیست پرداخت ها
+{% endblock %}
+
+{% block main-content %}
+    <div class="main-div">
+        <div class=" second-div p-4 text-center justify-content-center">
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ردیف</th>
+                        <th scope="col">مبلغ</th>
+                        <th scope="col">پروژه</th>
+                        <th scope="col">بابت</th>
+                        <th scope="col">تاریخ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for obj in pay %}
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{ obj.value }} تومان</td>
+                        <td>{{ obj.project }}</td>
+                        <td>{{ obj.description }}</td>
+                        <td>{{ obj.date|date:"Y/M/d" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        <div class=" d-flex justify-content-center text-center ">
+            <p class="alert alert-info my-alert">تعداد {{ pay_c }}  پرداخت یافت شد </p>
+        </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

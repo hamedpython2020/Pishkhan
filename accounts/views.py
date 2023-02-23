@@ -140,7 +140,7 @@ def Projectlist(request):
         'objects': objects,
         'num': num
     }
-    return render(request, 'accounts/payment_list.html', context)
+    return render(request, 'accounts/project_list.html', context)
 
 
 def Project(request, project_id):
@@ -157,9 +157,9 @@ def NewPayment(request):
         if pay.is_valid():
             pay = pay.save()
             value = pay.value
-            customer = pay.manager
-            customer.pay_service(value)
-            customer.save()
+            project = pay.project
+            project.pay_service(value)
+            project.save()
             pay.save()
             return HttpResponseRedirect(reverse('accounts:payment_list'))
         context = {

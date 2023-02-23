@@ -23,7 +23,7 @@ body{
     border: 2px dashed rosybrown;
     margin-left: 100px;
     padding: 20px;
-    background-color: #ffeb70;
+    background-color: #4770ef;
     color: #FFEB70;
     overflow: auto;
     min-width: 20cm;
@@ -32,11 +32,11 @@ body{
 }
 
 .second-div{
-    background-color: #404752;
+    background-color: #2a3137;
     padding: 20px 20px 10px 10px;
-    border-radius: 5px;
+    border-radius: 20px;
     margin:0 20px ;
-    /*border-bottom: 5px dashed #2b3035;*/
+    border: 10px dashed #495356;
 }
 
 .data{
@@ -65,6 +65,7 @@ body{
     font-size: 110%;
     background-color: #390879;
 }
+
 .change-btn:hover{
     background-color: #f8ce46;
     color: #006eff;
@@ -72,11 +73,22 @@ body{
 
 }
 
-.modal-btn{
-    width: 20px;
+.mybtn{
+    font-size: 1.5rem;
+    color: #f8ce46;
+    background-color:#2b3035
 }
 
+.mybtn:hover{
+    box-shadow:2px 3px #b8df10;
+}
 
 thierd_part{
     background-color: #404752;
+}
+
+.my-alert{
+    width: 30%;
+    height: auto;
+    margin-left: 100px
 }

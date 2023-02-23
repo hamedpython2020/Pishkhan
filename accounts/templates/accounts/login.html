@@ -1,5 +1,4 @@
 {% extends "accounts/Base_template_accounts.html" %}
-{% load static %}
 
 {% block title %}
     ورود
@@ -7,8 +6,8 @@
 
 
 {% block main-content %}
-    <div class="main-div bg-warning">
-        <div class="second-div text-center p-4 ">
+    <div class="main-div">
+        <div class=" second-div p-4 text-center">
             <form class="row flex-md-row justify-content-center p-4 my-1 " method="post">{% csrf_token %}
                 <label class="col-md-2 my-3 " for="username" > نام کاربری :  </label>
                 <input class="col-md-4 my-3 " type="text" name="username" placeholder="نام کاربری را وارد کنید">
@@ -18,7 +17,7 @@
 {#                <label class="col-md-3 my-3 " for="password" > کد امنیتی :  </label>#}
 {#                <img class="col-md-3 mx-2" src="{%  static "captcha.png"%}" height="50" width="30">#}
 {#                <input type="number" maxlength="4" class="col-md-4 my-3 " name="cap" placeholder="کپچا را وارد کنید" autocomplete="none">#}
-                <button class="btn btn-outline-success col-md-3 my-3" type="submit">ورود</button>
+                <button class="btn btn-warning col-md-3 my-3 mybtn" type="submit">ورود</button>
             </form>
             {% if error %}
             <div class="alert alert-danger">

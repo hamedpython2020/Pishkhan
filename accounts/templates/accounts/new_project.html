@@ -7,7 +7,7 @@
 {% block main-content %}
     <div class="main-div">
         <div class="second-div text-center row ">
-            <form class="form-group flex-row" method="post" enctype="multipart/form-data">
+            <form class="form-group flex-row" method="post" >
                 {% csrf_token %}
                 <label class="label mb-md-3" for="{{ project.code_p.label }}">
                     کد نوسازی :
