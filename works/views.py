@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -25,12 +27,15 @@ def NewService(request):
     if request.method == 'POST':
         service = ServicesForm(request.POST, request.FILES)
         if service.is_valid():
-            service = service.save()
-            cost_service = service.cost_services
-            customer = service.manager
-            customer.spend(cost_service)
-            customer.save()
-            return HttpResponseRedirect(reverse('index'))
+            res = service.save(commit=False)
+            today = service.cleaned_data['date']
+            res.date = today
+            res.save()
+            cost_service = res.cost_services
+            projects = res.project
+            projects.spend(cost_service)
+            projects.save()
+            return HttpResponseRedirect(reverse('works:services_list'))
         else:
             context = {
                 'error': 'Something went wrong'
@@ -38,7 +43,8 @@ def NewService(request):
     else:
         service = ServicesForm()
         context = {
-            'service': service
+            'service': service,
+            'today': date.today()
         }
     return render(request, 'works/service_new.html', context)
 

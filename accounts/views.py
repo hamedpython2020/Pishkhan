@@ -1,6 +1,7 @@
 import os
 from datetime import datetime, date
 import random
+from jalali_date import datetime2jalali, date2jalali
 
 from PIL.ImagePath import Path
 from captcha import image
@@ -15,7 +16,8 @@ from accounts.forms import EmployeeForm, ProjectForm, NewUser, PayForm
 from accounts.models import employee, project, payment
 
 ########## My functions ############
-
+def my_view(request):
+    jalali_join = datetime2jalali(request.user.date_joined).strftime('%y/%m/%d _ %H:%M:%S')
 ########### Home Page #############
 
 def index(request):
@@ -152,24 +154,25 @@ def Project(request, project_id):
 
 
 def NewPayment(request):
+    today = date.today()
     if request.method == 'POST':
         pay = PayForm(request.POST)
         if pay.is_valid():
-            pay = pay.save()
+            pay.save()
             value = pay.value
             project = pay.project
             project.pay_service(value)
             project.save()
-            pay.save()
             return HttpResponseRedirect(reverse('accounts:payment_list'))
         context = {
-
+            'pay': pay
         }
         pass
     else:
         pay = PayForm()
         context = {
-            'pay': pay
+            'pay': pay,
+            'today': today,
         }
     return render(request, 'accounts/payment.html', context)
 

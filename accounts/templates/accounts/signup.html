@@ -1,17 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ثبت نام</title>
-</head>
-<body>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ user }}
+{% extends "accounts/Base_template_accounts.html" %}
+{% block title %}
+    ثبت نام
+{% endblock %}
 
-    <button type="submit">
-        signup
-    </button>
-</form>
-</body>
-</html>
+{% block main-content %}
+    <div class="main-div">
+        <div class="second-div text-center row ">
+            <form class="form-group flex-row" method="post">
+                {% csrf_token %}
+                <label class="label mb-md-3">
+                    {{ user.username.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{user.username}}
+                </div>
+                <label class="label my-md-3" for="{{ user.password1.label }}">
+                    {{ user.password1.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{user.password1 }}
+                    {{user.password1.errors }}
+                </div>
+                <label class="label my-md-3" for="{{ user.password2.label }}">
+                    {{ user.password2.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{user.password2 }}
+                    {{user.password2.errors }}
+                </div>
+                <div class="row m-3 d-flex justify-content-between">
+                    <button class="btn btn-outline-danger col-2" onClick="window.location.href=window.location.href">پاک سازی صفحه</button>
+                    <button type="submit" class="col-2 mx-5 btn-outline-success btn">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

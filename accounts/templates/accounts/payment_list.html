@@ -1,5 +1,5 @@
 {% extends "accounts/Base_template_accounts.html" %}
-
+{% load jalali_tags %}
 {% block title %}
     لیست پرداخت ها
 {% endblock %}
@@ -24,7 +24,7 @@
                         <td>{{ obj.value }} تومان</td>
                         <td>{{ obj.project }}</td>
                         <td>{{ obj.description }}</td>
-                        <td>{{ obj.date|date:"Y/M/d" }}</td>
+                        <td>{{ obj.date|to_jalali:'%Y/%m/%d' }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

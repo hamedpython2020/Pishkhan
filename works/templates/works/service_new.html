@@ -1,17 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>افزودن خدمات</title>
-</head>
-<body>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ service }}
+{% extends "accounts/Base_template_accounts.html" %}
+{% load static %}
+{% load jalali_tags %}
 
-    <button type="submit">
-        confirm
-    </button>
-</form>
-</body>
-</html>
+{% block title %}
+    ثبت خدمت جدید
+{% endblock %}
+
+
+{% block main-content %}
+    <div class="main-div">
+        <div class="second-div text-center row ">
+            <form class="form-group flex-row" method="post">
+                {% csrf_token %}
+                <label class="label mb-md-3" for="{{ service.project.label }}">
+                    {{ service.project.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{service.project}}
+                    {{service.project.errors}}
+                </div>
+                <label class="label my-md-3" for="{{ service.define_services.label }}">
+                    {{ service.define_services.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{ service.define_services }}
+                    {{ service.define_services.errors }}
+                </div>
+                <label class="label my-md-3" for="{{  service.cost_services.label }}">
+                    {{ service.cost_services.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{service.cost_services }}
+                    {{service.cost_services.errors }}
+                </div>
+                <label class="label my-md-3" for="{{  service.description.label }}">
+                    {{ service.description.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{service.description }}
+                    {{service.description.errors }}
+                </div>
+                <label class="label my-md-3" for="{{  service.date.label }}">
+                    {{ service.date.label }} :
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{ service.date }}
+                    {{service.date.errors }}
+                </div>
+                <div class="row m-3 d-flex justify-content-between">
+                    <button class="btn btn-outline-danger col-2" onClick="window.location.href=window.location.href">پاک سازی صفحه</button>
+                    <button type="submit" class="col-2 mx-5 btn-outline-success btn">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "accounts/js/bootstrap-datepicker.js" %}"></script>
+    <script src="{% static "accounts/js/bootstrap-datepicker.fa.js" %}"></script>
+    <script>
+
+            $(document).ready(function() {
+                $("#datepicker0").datepicker();
+
+                $("#datepicker1").datepicker();
+                $("#datepicker1btn").click(function(event) {
+                    event.preventDefault();
+                    $("#datepicker1").focus();
+                })
+
+                $("#datepicker2").datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: true
+                });
+
+                $("#datepicker3").datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
+
+                $("#datepicker4").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                });
+
+                $("#datepicker5").datepicker({
+                    minDate: 0,
+                    maxDate: "+14D"
+                });
+
+                $("#datepicker6").datepicker({
+                    isRTL: true,
+                    dateFormat: "d/m/yy"
+                });
+            });
+
+
+       </script>
+{% endblock %}

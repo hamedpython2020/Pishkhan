@@ -1,5 +1,5 @@
 {% extends "accounts/Base_template_accounts.html" %}
-
+{% load jalali_tags %}
 {% block title %}
     لیست پروژه ها
 {% endblock %}
@@ -28,9 +28,9 @@
                             <td>{{ obj.code_p }}</td>
                             <td>{{ obj.code_erg }}</td>
                             <td>{{ obj.manager }}</td>
-                            <td>{{ obj.status }}</td>
-                            <td>{{ obj.bill }}</td>
-                            <td>{{ obj.add_time|date:"Y/M/d" }}</td>
+                            <td>{{ obj.get_status_display }}</td>
+                            <td>{{ obj.bill }}  تومان </td>
+                            <td>{{ obj.add_time|to_jalali:'%Y/%m/%d' }}</td>
                             <td>
                                 {% if obj.description %}
                                     {{ obj.description }}

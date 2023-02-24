@@ -26,7 +26,7 @@ body{
     background-color: #4770ef;
     color: #FFEB70;
     overflow: auto;
-    min-width: 20cm;
+    min-width: 250px;
     text-overflow: ellipsis;
     border-radius: 20px;
 }

@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'jalali_date',
+    'django_jalali',
+
     'accounts.apps.AccountsConfig',
     'works.apps.WorksConfig',
 ]

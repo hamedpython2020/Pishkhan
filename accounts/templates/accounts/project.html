@@ -1,12 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ obj.manager }}</title>
-</head>
-<body>
-    <div>
-        {{ obj }}
+{% extends "accounts/Base_template_accounts.html" %}
+{% load jalali_tags %}
+{% block title %}
+    {{ obj.code_p}}
+{% endblock %}
+
+{% block main-content %}
+    <div class="main-div">
+        <div class="second-div text-center row ">
+            <div class="col-md-12 row data">
+                <div class="col-3">
+                    <p class=" divlabel rounded">کد نوسازی : </p>
+                </div>
+                <div class="col-md-3 "><hr><br>
+                    <P class="divans rounded">{{ obj.code_p}}</P>
+                </div>
+                <div class="col-md-3">
+                    <p class=" divlabel rounded"> کد ارجاع  :</p>
+                </div>
+                <div class="col-md-3 endcolumn"><hr></br>
+                    <p class="divans rounded">{{ obj.code_erg }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p class=" divlabel rounded"> تاریخ ثبت  :</p>
+                </div>
+                <div class="col-md-3"><hr><br>
+                   <p class="divans rounded">{{ obj.add_time|to_jalali:'%Y/%m/%d'}}</p>
+                </div>
+                <div class="col-md-3">
+                   <p class=" divlabel rounded"> نام کارفرما :</p>
+                </div>
+                <div class="col-md-3 endcolumn"><hr><br>
+                   <p class="divans rounded">{{ obj.manager}}</p>
+                </div>
+                <div class="col-md-3">
+                   <p class=" divlabel rounded"> صورتحساب :</p>
+                </div>
+                <div class="col-md-3"><hr><br>
+                   <p class="divans rounded">{{ obj.bill}}</p>
+                </div>
+                <div class="col-md-3">
+                   <p class=" divlabel rounded"> وضعیت :</p>
+                </div>
+                <div class="col-md-3 endcolumn"><hr><br>
+                   <p class="divans rounded">{{ obj.status}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row flex-row justify-content-end">
+            <a class="btn change-btn col-md-2" href="#">تغیر پسوورد</a>
+            <a class="btn change-btn col-md-2" href="#">تغیر اطلاعات</a>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

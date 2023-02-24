@@ -1,5 +1,6 @@
 {% extends "accounts/Base_template_accounts.html" %}
-
+{% load static %}
+{% load jalali_tags %}
 {% block title %}
     ثبت پرداخت
 {% endblock %}
@@ -7,34 +8,38 @@
 {% block main-content %}
     <div class="main-div">
         <div class="second-div text-center row ">
+            <div class="alert alert-danger {{ pay.error_class }}">
+                {{ pay.errors }}
+            </div>
             <form class="form-group flex-row" method="post" >
                 {% csrf_token %}
-                <label class="label mb-md-3" for="{{ pay.project.label }}">
+                <label class="label mb-md-3 my-2" for="{{ pay.project.label }}">
                     {{ pay.project.label }}
                 </label>
                 <div class="input-group justify-content-center" >
                     {{pay.project}}
                     {{pay.project.errors}}
                 </div>
-                <label class="label mb-md-3" for="{{ pay.value.label }}">
+                <label class="label mb-md-3 my-2" for="{{ pay.value.label }}">
                     {{ pay.value.label }}
                 </label>
                 <div class="input-group justify-content-center" >
                     {{pay.value}}
                     {{pay.value.errors}}
                 </div>
-                <label class="label mb-md-3" for="{{ pay.description.label }}">
+                <label class="label mb-md-3 my-2" for="{{ pay.description.label }}">
                     {{ pay.description.label }}
                 </label>
                 <div class="input-group justify-content-center" >
                     {{pay.description}}
                     {{pay.description.errors}}
                 </div>
-                <label class="label mb-md-3" for="{{ pay.date.label }}">
+                <label class="label mb-md-3 my-2" for="{{ pay.date.label }}">
                     {{ pay.date.label }}
                 </label>
                 <div class="input-group justify-content-center" >
-                    {{pay.date}}
+                    {{ pay.date }}
+                    <button id="datepicker4btn" class="mx-1 btn btn-warning" type="button"><i class="bi bi-calendar3"></i></button>
                     {{pay.date.errors}}
                 </div>
                 <div class="row m-3 d-flex justify-content-between">
@@ -45,4 +50,52 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "accounts/js/bootstrap-datepicker.js" %}"></script>
+    <script src="{% static "accounts/js/bootstrap-datepicker.fa.js" %}"></script>
+    <script>
+
+            $(document).ready(function() {
+                $("#datepicker0").datepicker();
+
+                $("#datepicker1").datepicker();
+                $("#datepicker1btn").click(function(event) {
+                    event.preventDefault();
+                    $("#datepicker1").focus();
+                })
+
+                $("#datepicker2").datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: true
+                });
+
+                $("#datepicker3").datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
+
+                $("#datepicker4").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                });
+                $("#datepicker4btn").click(function(event) {
+                    event.preventDefault();
+                    $("#datepicker4").focus();
+                })
+
+                $("#datepicker5").datepicker({
+                    minDate: 0,
+                    maxDate: "+14D"
+                });
+
+                $("#datepicker6").datepicker({
+                    isRTL: true,
+                    dateFormat: "d/m/yy"
+                });
+            });
+
+
+       </script>
 {% endblock %}

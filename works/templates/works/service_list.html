@@ -1,12 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>لیست کل خدمات </title>
-</head>
-<body>
-    <div>
-        {{ service }}
+{% extends "accounts/Base_template_accounts.html" %}
+{% load jalali_tags %}
+
+{% block title %}
+    لیست خدمات
+{% endblock %}
+
+{% block main-content %}
+    <div class="main-div">
+        <div class=" second-div p-4 text-center justify-content-center">
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ردیف</th>
+                        <th scope="col">نوع خدمت</th>
+                        <th scope="col">هزینه</th>
+                        <th scope="col">توضیحات</th>
+                        <th scope="col">پروژه</th>
+                        <th scope="col">تاریخ ثبت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for obj in service %}
+                    <tr>
+                        <th scope="row">{{ obj.id }}</th>
+                        <td>{{ obj.get_define_services_display }} </td>
+                        <td>{{ obj.cost_services }}</td>
+                        <td>{{ obj.description }}</td>
+                        <td>{{ obj.project }}</td>
+                        <td>{{ obj.date|to_jalali:'%Y/%m/%d' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        <div class=" d-flex justify-content-center text-center ">
+            <p class="alert alert-info my-alert">تعداد {{ service_c }}  خدمت یافت شد </p>
+        </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

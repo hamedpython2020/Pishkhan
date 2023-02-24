@@ -1,0 +1,11 @@
+LICENSE.txt
+README.md
+setup.cfg
+setup.py
+persian-date/__init__.py
+persian-date/main.py
+persian_date.egg-info/PKG-INFO
+persian_date.egg-info/SOURCES.txt
+persian_date.egg-info/dependency_links.txt
+persian_date.egg-info/requires.txt
+persian_date.egg-info/top_level.txt
