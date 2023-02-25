@@ -44,7 +44,7 @@ def NewService(request, project_id):
         }
     else:
         proj = project.objects.get(pk=project_id)
-        service = ServicesForm(fields=['project'])
+        service = ServicesForm(initial={'project': project_id})
         context = {
             'service': service,
             'today': date.today()

@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
-from accounts.forms import EmployeeForm, ProjectForm, NewUser, PayForm
+from accounts.forms import EmployeeForm, ProjectForm, NewUser, PayForm, SearchForm
 from accounts.models import employee, project, payment
 
 ########## My functions ############
@@ -136,11 +136,22 @@ def Newproject(request):
 
 
 def Projectlist(request):
+    search_box = SearchForm(request.GET)
     objects = project.objects.all()
+    if search_box.is_valid():
+        if search_box.cleaned_data['code_p']:
+            objects = objects.filter(code_p__contains=search_box.cleaned_data['code_p'])
+        if search_box.cleaned_data['code_e']:
+            objects = objects.filter(code_erg__contains=search_box.cleaned_data['code_e'])
+        if search_box.cleaned_data['manger']:
+            objects = objects.filter(manager__contains=search_box.cleaned_data['manger'])
+        if search_box.cleaned_data['status']:
+            objects = objects.filter(status=search_box.cleaned_data['status'])
     num = objects.count()
     context = {
         'objects': objects,
-        'num': num
+        'num': num,
+        'search_box': search_box
     }
     return render(request, 'accounts/project_list.html', context)
 
@@ -153,7 +164,7 @@ def Project(request, project_id):
     return render(request, 'accounts/project.html', context)
 
 
-def NewPayment(request):
+def NewPayment(request, project_id):
     today = date.today()
     if request.method == 'POST':
         pay = PayForm(request.POST)
@@ -169,7 +180,7 @@ def NewPayment(request):
         }
         pass
     else:
-        pay = PayForm()
+        pay = PayForm(initial={'project': project_id})
         context = {
             'pay': pay,
             'today': today,

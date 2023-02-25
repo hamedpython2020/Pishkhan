@@ -6,6 +6,33 @@
 
 {% block main-content %}
     <div class="main-div">
+        <button class="btn btn-danger m-3 " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            جستجو
+        </button>
+        <form class="m-3 row p-3 rounded search-form collapse" id="collapseExample">
+            <div class="col-md-3">
+                {{ search_box.manger.label }} :
+                {{ search_box.manger}}
+                {{ search_box.manger.errors }}
+            </div>
+            <div class="col-md-3">
+                {{ search_box.code_p.label }} :
+                <input id="code_p" name="code_p" placeholder="0-0-0-0-0">
+                {{ search_box.code_p.errors }}
+            </div>
+            <div class="col-md-3">
+                {{ search_box.code_e.label }} :
+                <input id="{{ search_box.code_e.label }}" name="{{ search_box.code_e.name}}" placeholder="0">
+                {{ search_box.code_e.errors }}
+            </div>
+            <div class="col-md-3">
+                {{ search_box.status.label }} :
+                {{ search_box.status}}
+                {{ search_box.status.errors }}
+            </div>
+            <br>
+            <button type="submit" class="justify-content-end btn btn-warning col-2 m-2 ">جستجو</button>
+        </form>
         <div class=" second-div p-4 text-center">
             <table class="table table-dark table-hover table-striped">
                 <thead>
@@ -24,7 +51,7 @@
                 <tbody>
                 {% for obj in objects %}
                         <tr class="">
-                            <th scope="row">1</th>
+                            <th scope="row">{{ obj.id }}</th>
                             <td>{{ obj.code_p }}</td>
                             <td>{{ obj.code_erg }}</td>
                             <td>{{ obj.manager }}</td>
@@ -41,6 +68,12 @@
                             <td>
                                 <a class="btn btn-info" href="{% url "accounts:project" project_id=obj.id %}">
                                     نمایش
+                                </a>
+                                <a class="btn btn-success" href="{% url "works:services_new" project_id=obj.id %}">
+                                    ثبت درخواست
+                                </a>
+                                <a class="btn btn-warning" href="{% url "accounts:new_payment" project_id=obj.id %}">
+                                     پرداخت
                                 </a>
                             </td>
                         </tr>

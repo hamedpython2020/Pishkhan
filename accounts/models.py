@@ -57,7 +57,7 @@ class project(models.Model):
         (8, 'زمین خالی'),
         (9, 'متفرقه')
     )
-    status = models.IntegerField('وضعیت پروژه', choices=status_choices)
+    status = models.IntegerField('وضعیت پروژه', choices=status_choices, default=9)
     description = models.TextField(verbose_name="توضیحات", blank=True)
     manager = models.CharField("سازنده", null=False, max_length=50)
 
