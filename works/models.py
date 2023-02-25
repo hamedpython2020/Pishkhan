@@ -1,4 +1,5 @@
 from django.db import models
+from django_jalali.db import models as jmodels
 
 # Create your models here.
 from django.utils import timezone
@@ -26,7 +27,7 @@ class Services(models.Model):
     cost_services = models.IntegerField('هزینه', null=False)
     description = models.TextField("خدمات متفرقه", blank=True)
     project = models.ForeignKey('accounts.project', verbose_name="پروژه", null=False, on_delete=models.PROTECT)
-    date = models.DateField("تاریخ درخواست", default=timezone.now, null=False)
+    date = jmodels.jDateField("تاریخ درخواست", default=timezone.now, null=False)
 
     def __str__(self):
         return "{1}-->{0}".format(self.project, self.define_services)

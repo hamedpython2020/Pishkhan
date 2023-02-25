@@ -10,6 +10,11 @@
 {% block main-content %}
     <div class="main-div">
         <div class="second-div text-center row ">
+            {% if service.errors %}
+                <div class="alert alert-danger">
+                    {{service.errors }}
+                </div>
+            {% endif %}
             <form class="form-group flex-row" method="post">
                 {% csrf_token %}
                 <label class="label mb-md-3" for="{{ service.project.label }}">
@@ -18,35 +23,36 @@
                 <div class="input-group justify-content-center" >
                     {{service.project}}
                     {{service.project.errors}}
-                </div>
+                </div><hr class="text-primary">
                 <label class="label my-md-3" for="{{ service.define_services.label }}">
                     {{ service.define_services.label }} :
                 </label>
                 <div class="input-group justify-content-center" >
                     {{ service.define_services }}
                     {{ service.define_services.errors }}
-                </div>
+                </div><hr class="text-primary">
                 <label class="label my-md-3" for="{{  service.cost_services.label }}">
                     {{ service.cost_services.label }} :
                 </label>
                 <div class="input-group justify-content-center" >
                     {{service.cost_services }}
                     {{service.cost_services.errors }}
-                </div>
+                </div><hr class="text-primary">
                 <label class="label my-md-3" for="{{  service.description.label }}">
                     {{ service.description.label }} :
                 </label>
                 <div class="input-group justify-content-center" >
                     {{service.description }}
                     {{service.description.errors }}
-                </div>
+                </div><hr class="text-primary">
                 <label class="label my-md-3" for="{{  service.date.label }}">
                     {{ service.date.label }} :
                 </label>
                 <div class="input-group justify-content-center" >
                     {{ service.date }}
+                    <button id="datepicker4btn" class="mx-1 btn btn-warning" type="button"><i class="bi bi-calendar3"></i></button>
                     {{service.date.errors }}
-                </div>
+                </div><hr class="text-primary">
                 <div class="row m-3 d-flex justify-content-between">
                     <button class="btn btn-outline-danger col-2" onClick="window.location.href=window.location.href">پاک سازی صفحه</button>
                     <button type="submit" class="col-2 mx-5 btn-outline-success btn">ذخیره</button>
@@ -82,8 +88,13 @@
 
                 $("#datepicker4").datepicker({
                     changeMonth: true,
-                    changeYear: true
+                    changeYear: true,
+                    showButtonPanel: true
                 });
+                 $("#datepicker4btn").click(function(event) {
+                    event.preventDefault();
+                    $("#datepicker4").focus();
+                })
 
                 $("#datepicker5").datepicker({
                     minDate: 0,

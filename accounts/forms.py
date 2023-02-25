@@ -28,6 +28,10 @@ class PayForm(forms.ModelForm):
         }
         pass
 
+    # project = forms.ModelMultipleChoiceField(queryset=project.objects.all())
+    def clean_date(self):
+        pass
+
     # years = []
     # for i in range(1390, 1430):
     #     years.append(str(i))

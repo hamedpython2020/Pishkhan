@@ -8,9 +8,11 @@
 {% block main-content %}
     <div class="main-div">
         <div class="second-div text-center row ">
-            <div class="alert alert-danger {{ pay.error_class }}">
-                {{ pay.errors }}
-            </div>
+            {% if pay.errors %}
+                <div class="alert alert-danger {{ pay.error_class }}">
+                    {{ pay.errors }}
+                </div><hr class="text-primary">
+            {% endif %}
             <form class="form-group flex-row" method="post" >
                 {% csrf_token %}
                 <label class="label mb-md-3 my-2" for="{{ pay.project.label }}">
@@ -19,21 +21,21 @@
                 <div class="input-group justify-content-center" >
                     {{pay.project}}
                     {{pay.project.errors}}
-                </div>
+                </div><hr class="text-primary">
                 <label class="label mb-md-3 my-2" for="{{ pay.value.label }}">
                     {{ pay.value.label }}
                 </label>
                 <div class="input-group justify-content-center" >
                     {{pay.value}}
                     {{pay.value.errors}}
-                </div>
+                </div><hr class="text-primary">
                 <label class="label mb-md-3 my-2" for="{{ pay.description.label }}">
                     {{ pay.description.label }}
                 </label>
                 <div class="input-group justify-content-center" >
                     {{pay.description}}
                     {{pay.description.errors}}
-                </div>
+                </div><hr class="text-primary">
                 <label class="label mb-md-3 my-2" for="{{ pay.date.label }}">
                     {{ pay.date.label }}
                 </label>
@@ -41,7 +43,7 @@
                     {{ pay.date }}
                     <button id="datepicker4btn" class="mx-1 btn btn-warning" type="button"><i class="bi bi-calendar3"></i></button>
                     {{pay.date.errors}}
-                </div>
+                </div><hr class="text-primary">
                 <div class="row m-3 d-flex justify-content-between">
                     <button class="btn btn-outline-danger col-2" onClick="window.location.href=window.location.href">پاک سازی صفحه</button>
                     <button type="submit" class="col-2 mx-5 btn-outline-success btn">ذخیره</button>
@@ -78,7 +80,8 @@
 
                 $("#datepicker4").datepicker({
                     changeMonth: true,
-                    changeYear: true
+                    changeYear: true,
+                    showButtonPanel: true
                 });
                 $("#datepicker4btn").click(function(event) {
                     event.preventDefault();
@@ -95,7 +98,5 @@
                     dateFormat: "d/m/yy"
                 });
             });
-
-
        </script>
 {% endblock %}

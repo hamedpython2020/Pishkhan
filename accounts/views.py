@@ -26,23 +26,23 @@ def index(request):
 ######## Registration Page  ########
 
 
-def Signup(request):
-    if request.user is not None:
-        logout(request)
-        pass
-    if request.method == 'POST':
-        user = NewUser(request.POST)
-        if user.is_valid():
-            user = user.save()
-            login(request, user)
-            return HttpResponseRedirect(reverse('accounts:new_employee'))
-        context = {}
-    else:
-        user = NewUser()
-        context = {
-            'user': user
-        }
-    return render(request, 'accounts/signup.html', context)
+# def Signup(request):
+#     if request.user is not None:
+#         logout(request)
+#         pass
+#     if request.method == 'POST':
+#         user = NewUser(request.POST)
+#         if user.is_valid():
+#             user = user.save()
+#             login(request, user)
+#             return HttpResponseRedirect(reverse('accounts:new_employee'))
+#         context = {}
+#     else:
+#         user = NewUser()
+#         context = {
+#             'user': user
+#         }
+#     return render(request, 'accounts/signup.html', context)
 
 
 def Login(request):

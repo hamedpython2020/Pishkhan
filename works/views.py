@@ -1,8 +1,11 @@
 from datetime import date
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+
+from accounts.models import project
 from works.forms import DocForm, ServicesForm
 from works.models import Services
 
@@ -23,7 +26,7 @@ def Docupload(request):
     return render(request, 'works/upload_doc.html', context)
 
 
-def NewService(request):
+def NewService(request, project_id):
     if request.method == 'POST':
         service = ServicesForm(request.POST, request.FILES)
         if service.is_valid():
@@ -36,12 +39,12 @@ def NewService(request):
             projects.spend(cost_service)
             projects.save()
             return HttpResponseRedirect(reverse('works:services_list'))
-        else:
-            context = {
-                'error': 'Something went wrong'
-            }
+        context = {
+         'service': service
+        }
     else:
-        service = ServicesForm()
+        proj = project.objects.get(pk=project_id)
+        service = ServicesForm(fields=['project'])
         context = {
             'service': service,
             'today': date.today()

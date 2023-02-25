@@ -27,7 +27,7 @@
                         <td>{{ obj.cost_services }}</td>
                         <td>{{ obj.description }}</td>
                         <td>{{ obj.project }}</td>
-                        <td>{{ obj.date|to_jalali:'%Y/%m/%d' }}</td>
+                        <td>{{ obj.date|date:"Y/m/d"}}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
