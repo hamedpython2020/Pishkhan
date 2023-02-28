@@ -1,19 +1,23 @@
+import io
 import os
 from datetime import datetime, date
-import random
+import cgi
+from io import BytesIO, StringIO
+from django.template import Context
+from django.template.loader import get_template
+from django.views.generic import ListView
 from jalali_date import datetime2jalali, date2jalali
-
-from PIL.ImagePath import Path
-from captcha import image
-from captcha.image import ImageCaptcha
+from django.views import View
 from django.contrib.auth import logout, login, authenticate
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, FileResponse, HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
-
+from xhtml2pdf import pisa
 from accounts.forms import EmployeeForm, ProjectForm, NewUser, PayForm, SearchForm
 from accounts.models import employee, project, payment
+from works.models import Services
+
 
 ########## My functions ############
 def my_view(request):
@@ -145,8 +149,6 @@ def Projectlist(request):
             objects = objects.filter(code_erg__contains=search_box.cleaned_data['code_e'])
         if search_box.cleaned_data['manger']:
             objects = objects.filter(manager__contains=search_box.cleaned_data['manger'])
-        if search_box.cleaned_data['status']:
-            objects = objects.filter(status=search_box.cleaned_data['status'])
     num = objects.count()
     context = {
         'objects': objects,
@@ -189,17 +191,64 @@ def NewPayment(request, project_id):
 
 
 def Paymentlist(request):
-    try:
-        pay = payment.objects.all().order_by('date')
-        pay_c = pay.count()
-        context = {
-            'pay': pay,
-            'pay_c': pay_c
-        }
-    except:
-        error = 'Something is wrong'
-        context = {
-            'error': error
-        }
-        pass
+
+    search_box = SearchForm(request.GET)
+    pay = payment.objects.all().order_by('date')
+    if search_box.is_valid():
+        if search_box.cleaned_data['code_p']:
+            pay = pay.filter(project__code_p__contains=search_box.cleaned_data['code_p'])
+        if search_box.cleaned_data['manger']:
+            pay = pay.filter(project__manager__contains=search_box.cleaned_data['manger'])
+        if search_box.cleaned_data['min_value']:
+            pay = pay.filter(value__gte=search_box.cleaned_data['min_value'])
+        if search_box.cleaned_data['max_value']:
+            pay = pay.filter(value__lte=search_box.cleaned_data['max_value'])
+    pay_c = pay.count()
+    context = {
+        'pay': pay,
+        'pay_c': pay_c,
+        'search_box': search_box
+    }
     return render(request, 'accounts/payment_list.html', context)
+
+
+def Projectdetail(request, project_id):
+    proj = project.objects.get(pk=project_id)
+    pay = payment.objects.all()
+    pay = pay.filter(project_id=project_id)
+    pay_num = pay.count()
+    service = Services.objects.all()
+    service = service.filter(project_id=project_id)
+    service_num = service.count()
+    context = {
+        'pay': pay,
+        'project': proj,
+        'pay_num': pay_num,
+        'service': service,
+        'service_num': service_num
+    }
+    return render(request, 'accounts/project_detail.html', context)
+
+##############################################
+
+
+def pay_render_pdf(request, pay_id):
+    payments = get_object_or_404(payment, pk=pay_id)
+    template_path = 'accounts/pay_pdf_view.html'
+    context = {'payment': payments}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = ';filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
