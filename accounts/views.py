@@ -19,10 +19,14 @@ from accounts.models import employee, project, payment
 from works.models import Services
 
 
-########## My functions ############
-def my_view(request):
-    jalali_join = datetime2jalali(request.user.date_joined).strftime('%y/%m/%d _ %H:%M:%S')
+
+
+
+
+
 ########### Home Page #############
+from works.views import Servicelist
+
 
 def index(request):
     return render(request, 'accounts/index.html', context={})
@@ -172,8 +176,8 @@ def NewPayment(request, project_id):
         pay = PayForm(request.POST)
         if pay.is_valid():
             pay.save()
-            value = pay.value
-            project = pay.project
+            value = pay.cleaned_data['value']
+            project = pay.cleaned_data['project']
             project.pay_service(value)
             project.save()
             return HttpResponseRedirect(reverse('accounts:payment_list'))
@@ -182,7 +186,8 @@ def NewPayment(request, project_id):
         }
         pass
     else:
-        pay = PayForm(initial={'project': project_id})
+        service = Services.objects.all().filter(project_id=project_id)
+        pay = PayForm(initial={'project': project_id, 'service': service})
         context = {
             'pay': pay,
             'today': today,
@@ -232,15 +237,16 @@ def Projectdetail(request, project_id):
 ##############################################
 
 
-def pay_render_pdf(request, pay_id):
-    payments = get_object_or_404(payment, pk=pay_id)
-    template_path = 'accounts/pay_pdf_view.html'
-    context = {'payment': payments}
+def pay_render_pdf(request, *args, **kwargs):
+    pk = kwargs.get('pk')
+    pay = get_object_or_404(payment, pk=pk)
+    template_path = 'pay_render_pdf.html'
+    context = {'pay': pay}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = ';filename="report.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
     # find the template and render it.
-    template = get_template(template_path)
+    template = get_template('accounts/pay_render_pdf.html')
     html = template.render(context)
 
     # create a pdf

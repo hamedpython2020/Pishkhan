@@ -36,6 +36,8 @@ body{
     padding: 20px 20px 10px 10px;
     border-radius: 20px;
     margin:0 20px ;
+    overflow: auto;
+    text-overflow: ellipsis;
     border: 10px dashed #495356;
 }
 
@@ -97,4 +99,52 @@ thierd_part{
     margin-left: auto;
     margin-right: 400px;
     margin-bottom: 100px;
+}
+
+.mother{
+    min-width: 100px;
+
+}
+
+.one-div{
+    max-height: 700px;
+    width:600px;
+    overflow: auto;
+    text-overflow: ellipsis;
+    border: 2px solid greenyellow;
+    border-radius: 5px;
+    background-color: #3450a1;
+    color: #1e2e23
+}
+
+.tabel-1{
+    background-color:#1a1d27;
+    color:#30ccff;
+    border: 2px solid #1e2e23;
+    border-radius: 5px;
+}
+
+
+.tabel-2{
+    background-color:#1a1d27;
+    /*background-color:#282A31;*/
+    color:#f8ce46;
+    border: 2px solid #1e2e23;
+    border-radius: 5px;
+}
+.tow-div{
+    max-height: 700px;
+    width:600px;
+    overflow: auto;
+    text-overflow: ellipsis;
+    border: 2px solid greenyellow;
+    border-radius: 5px;
+    /*background-color: #561139;*/
+    background-color: #6B29F8;
+
+}
+.row-over{
+    overflow: auto;
+    text-overflow: initial;
+
 }

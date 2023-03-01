@@ -36,6 +36,13 @@
                     {{pay.description}}
                     {{pay.description.errors}}
                 </div><hr class="text-primary">
+                <label class="label mb-md-3 my-2" for="{{ pay.service.label }}">
+                    {{ pay.service.label }}
+                </label>
+                <div class="input-group justify-content-center" >
+                    {{pay.service}}
+                    {{pay.service.errors}}
+                </div><hr class="text-primary">
                 <label class="label mb-md-3 my-2" for="{{ pay.date.label }}">
                     {{ pay.date.label }}
                 </label>
@@ -81,7 +88,9 @@
                 $("#datepicker4").datepicker({
                     changeMonth: true,
                     changeYear: true,
-                    showButtonPanel: true
+                    showButtonPanel: true,
+                    dateFormat: "y-m-d",
+            isRTL: true
                 });
                 $("#datepicker4btn").click(function(event) {
                     event.preventDefault();
@@ -97,6 +106,9 @@
                     isRTL: true,
                     dateFormat: "d/m/yy"
                 });
+                $('#datepicker13').datepicker({
+	            regional: ''
+	        });
             });
        </script>
 {% endblock %}

@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+from accounts.forms import SearchForm
 from accounts.models import project
 from works.forms import DocForm, ServicesForm
 from works.models import Services
@@ -53,10 +54,17 @@ def NewService(request, project_id):
 
 
 def Servicelist(request):
-     service = Services.objects.all().order_by('date')
-     service_c = service.count()
-     context = {
-         'service': service,
-         'service_c': service_c
-     }
-     return render(request, 'works/service_list.html', context)
+    search_box = SearchForm(request.GET)
+    service = Services.objects.all().order_by('date')
+    if search_box.is_valid():
+        if search_box.cleaned_data['code_p']:
+            service = service.filter(project__code_p__contains=search_box.cleaned_data['code_p'])
+        if search_box.cleaned_data['manger']:
+            service = service.filter(project__manager__contains=search_box.cleaned_data['manger'])
+    service_c = service.count()
+    context = {
+        'service': service,
+        'service_c': service_c,
+        'search_box': search_box
+    }
+    return render(request, 'works/service_list.html', context)

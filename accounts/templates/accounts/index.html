@@ -6,5 +6,21 @@
 {% endblock %}
 
 
-{#{% block main-content %}#}
-{#    {% endblock %}#}
+{% block main-content %}
+    <div class="row justify-content-center bg-secondary rounded" >
+        <div class="bg-dark p-5 m-5 w-75 flex-row rounded">
+            <a href="{% url "accounts:project_list" %}" class="btn btn-info mx-5">
+                ثبت پرداخت جدید
+            </a>
+            <a href="{% url "accounts:project_list" %}" class="btn btn-primary mx-5">
+                ثبت خدمات جدید
+            </a>
+            <a href="{% url "accounts:project_list" %}" class="btn btn-success mx-5">
+                ثبت پروژه جدید
+            </a>
+            <a href="{% url "accounts:payment_list" %}" class="btn btn-warning mx-5">
+                لیست پرداخت ها
+            </a>
+        </div>
+    </div>
+{% endblock %}

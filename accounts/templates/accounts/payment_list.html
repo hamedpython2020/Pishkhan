@@ -6,32 +6,90 @@
 
 {% block main-content %}
     <div class="main-div">
+        <div class="alert w-auto text-center display-6">لیست پرداخت ها  : </div>
+        <button class="btn btn-danger m-3 " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            جستجو
+        </button>
+        <form class="m-3 row p-3 rounded search-form collapse" id="collapseExample">
+            <div class="col-md-3">
+                {{ search_box.manger.label }} :
+                {{ search_box.manger}}
+                {{ search_box.manger.errors }}
+            </div>
+            <div class="col-md-3">
+                {{ search_box.min_value.label }} :
+                {{ search_box.min_value}}
+                {{ search_box.min_value.errors }}
+            </div>
+            <div class="col-md-3">
+                {{ search_box.max_value.label }} :
+                {{ search_box.max_value}}
+                {{ search_box.max_value.errors }}
+            </div>
+            <div class="col-md-3">
+                {{ search_box.code_p.label }} :
+                <input id="code_p" name="code_p" placeholder="0-0-0-0-0">
+                {{ search_box.code_p.errors }}
+            </div>
+            <br>
+            <button type="submit" class="justify-content-end btn btn-warning col-2 m-2 ">جستجو</button>
+        </form>
         <div class=" second-div p-4 text-center justify-content-center">
-            <table class="table table-dark table-hover">
+            <table class="table table-dark table-hover ">
                 <thead>
                     <tr>
                         <th scope="col">ردیف</th>
-                        <th scope="col">مبلغ</th>
-                        <th scope="col">پروژه</th>
-                        <th scope="col">بابت</th>
-                        <th scope="col">تاریخ</th>
+                        <th>مبلغ</th>
+                        <th>پروژه</th>
+                        <th>کارفرما</th>
+                        <th>بابت</th>
+                        <th>تاریخ</th>
+                        <th>عملیات</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for obj in pay %}
                     <tr>
-                        <th scope="row">{{ obj.id }}</th>
+                        <th scope="row"></th>
                         <td>{{ obj.value }} تومان</td>
                         <td>{{ obj.project }}</td>
+                        <td>{{ obj.project.manager }}</td>
                         <td>{{ obj.description }}</td>
-                        <td>{{ obj.date|date:"Y/m/d"}}</td>
+                        <td>{{ obj.date|date:"y/m/d"}}</td>
+                        <td>
+                            <a class="btn btn-info" href="{% url "accounts:pay_render_pdf" pk=obj.id %}">
+                                چاپ فاکتور
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         <div class=" d-flex justify-content-center text-center ">
-            <p class="alert alert-info my-alert">تعداد {{ pay_c }}  پرداخت یافت شد </p>
+            <p class="alert alert-info my-alert w-auto">تعداد {{ pay_c }}  پرداخت یافت شد </p>
         </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    var table = document.getElementsByTagName('table')[0],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
+}
+</script>
+        <script>
+    var table = document.getElementsByTagName('table')[1],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
+}
+</script>
+
 {% endblock %}

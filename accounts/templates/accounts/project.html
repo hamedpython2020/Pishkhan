@@ -17,7 +17,7 @@
                 <div class="col-md-3">
                     <p class=" divlabel rounded"> کد ارجاع  :</p>
                 </div>
-                <div class="col-md-3 endcolumn"><hr></br>
+                <div class="col-md-3 "><hr></br>
                     <p class="divans rounded">{{ obj.code_erg }}</p>
                 </div>
                 <div class="col-md-3">
@@ -29,7 +29,7 @@
                 <div class="col-md-3">
                    <p class=" divlabel rounded"> نام کارفرما :</p>
                 </div>
-                <div class="col-md-3 endcolumn"><hr><br>
+                <div class="col-md-3 "><hr><br>
                    <p class="divans rounded">{{ obj.manager}}</p>
                 </div>
                 <div class="col-md-3">
@@ -41,13 +41,13 @@
                 <div class="col-md-3">
                    <p class=" divlabel rounded"> وضعیت :</p>
                 </div>
-                <div class="col-md-3 endcolumn"><hr><br>
+                <div class="col-md-3 "><hr><br>
                    <p class="divans rounded">{{ obj.status}}</p>
                 </div>
             </div>
         </div>
         <div class="row flex-row justify-content-end">
-            <a class="btn change-btn col-md-2" href="#">تغیر پسوورد</a>
+            <a class="btn change-btn col-md-3" href="{% url 'accounts:project_detail' project_id=obj.id %}">لیست خدمات و پرداخت ها</a>
             <a class="btn change-btn col-md-2" href="#">تغیر اطلاعات</a>
         </div>
     </div>

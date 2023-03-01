@@ -25,11 +25,6 @@
                 <input id="{{ search_box.code_e.label }}" name="{{ search_box.code_e.name}}" placeholder="0">
                 {{ search_box.code_e.errors }}
             </div>
-            <div class="col-md-3">
-                {{ search_box.status.label }} :
-                {{ search_box.status}}
-                {{ search_box.status.errors }}
-            </div>
             <br>
             <button type="submit" class="justify-content-end btn btn-warning col-2 m-2 ">جستجو</button>
         </form>
@@ -51,13 +46,13 @@
                 <tbody>
                 {% for obj in objects %}
                         <tr class="">
-                            <th scope="row">{{ obj.id }}</th>
+                            <th scope="row"></th>
                             <td>{{ obj.code_p }}</td>
                             <td>{{ obj.code_erg }}</td>
                             <td>{{ obj.manager }}</td>
                             <td>{{ obj.get_status_display }}</td>
-                            <td>{{ obj.bill }}  تومان </td>
-                            <td>{{ obj.add_time|to_jalali:'%Y/%m/%d' }}</td>
+                            <td>{{ obj.bill }}  ریال </td>
+                            <td>{{ obj.add_time|date:"y/m/d" }}</td>
                             <td>
                                 {% if obj.description %}
                                     {{ obj.description }}
@@ -86,4 +81,26 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    var table = document.getElementsByTagName('table')[0],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
+}
+</script>
+        <script>
+    var table = document.getElementsByTagName('table')[1],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
+}
+</script>
+
 {% endblock %}
