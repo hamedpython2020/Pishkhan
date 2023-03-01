@@ -1,0 +1,84 @@
+{% extends "accounts/Base_template_accounts.html" %}
+{% load static %}
+{% load jalali_tags %}
+
+{% block title %}
+    لیست خدمات و پرداخت های {{ project }}
+{% endblock %}
+
+{% block main-content %}
+    <div class="mother row d-flex flex-md-row justify-content-between align-content-start">
+        <div class="one-div d-flex m-3">
+            <table class="table  tabel-1  m-3" >
+                <thead>
+                <tr>
+                    <th scope="col">ردیف</th>
+                    <th scope="col">مبلغ</th>
+                    <th scope="col">پروژه</th>
+                    <th scope="col">بابت</th>
+                    <th scope="col">تاریخ</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in pay %}
+                    <tr>
+                        <th scope="row"></th>
+                        <td>{{ obj.value }} تومان</td>
+                        <td>{{ obj.project }}</td>
+                        <td>{{ obj.description|truncatechars:15 }}</td>
+                        <td>{{ obj.date|date:"Y/m/d"}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tow-div  d-flex m-3">
+            <table class="table  tabel-2  m-3">
+                <thead>
+                <tr>
+                    <th scope="col">ردیف</th>
+                    <th scope="col">نوع خدمت</th>
+                    <th scope="col">هزینه</th>
+                    <th scope="col">توضیحات</th>
+                    <th scope="col">پروژه</th>
+                    <th scope="col">تاریخ ثبت</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in service %}
+                    <tr>
+                        <th scope="row"></th>
+                        <td>{{ obj.get_define_services_display }} </td>
+                        <td>{{  obj.cost_services }}</td>
+                        <td>{{ obj.description|truncatechars:15}}</td>
+                        <td>{{ obj.project }}</td>
+                        <td>{{ obj.date|date:"y/m/d"}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    var table = document.getElementsByTagName('table')[0],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
+}
+</script>
+        <script>
+    var table = document.getElementsByTagName('table')[1],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
+}
+</script>
+
+{% endblock %}

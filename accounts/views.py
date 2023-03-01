@@ -186,7 +186,7 @@ def NewPayment(request, project_id):
         }
         pass
     else:
-        service = Services.objects.all().filter(project_id=project_id)
+        service = Services.objects.all().filter(project_id=project_id).order_by('project_id')
         pay = PayForm(initial={'project': project_id, 'service': service})
         context = {
             'pay': pay,

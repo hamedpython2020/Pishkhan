@@ -5,6 +5,8 @@ from django_jalali.db import models as jmodels
 # Create your models here.
 from django.utils import timezone
 
+from works.models import Services
+
 
 class employee(models.Model):
     class Mete:
@@ -87,6 +89,7 @@ class payment(models.Model):
     value = models.IntegerField('مبلغ', null=False, default=0)
     date = jmodels.jDateField("تاریخ", null=False, default=timezone.now)
     description = models.TextField(verbose_name="بابت", blank=True)
+    service = models.ManyToManyField(Services, null=True, verbose_name='بابت ',)
 
     def __str__(self):
         return "{} --> {}".format(self.project, self.value)
