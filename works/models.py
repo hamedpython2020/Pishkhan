@@ -28,6 +28,7 @@ class Services(models.Model):
     description = models.TextField("خدمات متفرقه", blank=True)
     project = models.ForeignKey('accounts.project', verbose_name="پروژه", null=False, on_delete=models.PROTECT)
     date = jmodels.jDateField("تاریخ درخواست", default=timezone.now, null=False)
+    payed = models.BooleanField(verbose_name='تسویه', default=False)
 
     def __str__(self):
         return "{1}-->{0}".format(self.project, self.define_services)

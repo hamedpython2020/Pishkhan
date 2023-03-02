@@ -40,10 +40,7 @@
                     {{ pay.service.label }}
                 </label>
                 <div class="input-group justify-content-center" >
-{#                    {% for i in pay.service.field %}#}
-{#                    {{i}}<hr>#}
-                    {{ pay.service }}
-{#                    {% endfor %}#}
+                    {{pay.service}}
                     {{pay.service.errors}}
                 </div><hr class="text-primary">
                 <label class="label mb-md-3 my-2" for="{{ pay.date.label }}">
@@ -92,8 +89,8 @@
                     changeMonth: true,
                     changeYear: true,
                     showButtonPanel: true,
-                    dateFormat: "y-m-d",
-                    isRTL: true
+                    dateFormat: "yy-m-d",
+                    defaultValue: true
                 });
                 $("#datepicker4btn").click(function(event) {
                     event.preventDefault();

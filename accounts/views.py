@@ -173,6 +173,11 @@ def NewPayment(request, project_id):
             pay.save()
             value = pay.cleaned_data['value']
             project = pay.cleaned_data['project']
+            services = pay.cleaned_data['service']
+            for i in range(0, len(pay.cleaned_data['service'])):
+                service = pay.cleaned_data['service'][i]
+                service.payed = True
+                service.save()
             project.pay_service(value)
             project.save()
             return HttpResponseRedirect(reverse('accounts:payment_list'))
@@ -181,8 +186,8 @@ def NewPayment(request, project_id):
         }
         pass
     else:
-        service = Services.objects.all().filter(project_id=project_id).order_by('project_id')
-        pay = PayForm(initial={'project': project_id, 'service': service})
+        pay = PayForm(initial={'project': project_id})
+        pay.fields['service'].queryset = Services.objects.filter(project_id=project_id)
         context = {
             'pay': pay,
             'today': today,

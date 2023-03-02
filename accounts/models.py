@@ -89,7 +89,7 @@ class payment(models.Model):
     value = models.IntegerField('مبلغ', null=False, default=0)
     date = jmodels.jDateField("تاریخ", null=False, default=timezone.now)
     description = models.TextField(verbose_name="بابت", blank=True)
-    service = models.ManyToManyField(Services, null=True, verbose_name='بابت ',)
+    service = models.ManyToManyField(Services, verbose_name='بابت ', blank=True)
 
     def __str__(self):
         return "{} --> {}".format(self.project, self.value)

@@ -28,9 +28,8 @@ class PayForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'id': 'datepicker4'}),
         }
         pass
-    obj = Services.objects.all()
-
-    # service = forms.ModelMultipleChoiceField(label='خدمات', queryset='l1')
+    # service = forms.ModelMultipleChoiceField(queryset=Services.objects.all(), widget=forms.CheckboxSelectMultiple, required=False)
+    pass
 
 
 class ProjectForm(forms.ModelForm):
