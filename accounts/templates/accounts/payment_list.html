@@ -44,6 +44,7 @@
                         <th>کارفرما</th>
                         <th>بابت</th>
                         <th>تاریخ</th>
+                        <th>خدمات</th>
                         <th>عملیات</th>
                     </tr>
                 </thead>
@@ -56,6 +57,27 @@
                         <td>{{ obj.project.manager }}</td>
                         <td>{{ obj.description }}</td>
                         <td>{{ obj.date|date:"y/m/d"}}</td>
+                        <td>
+                        {% if obj.service.count == 0 %}
+                            <hr>
+                            {% else %}
+                                <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="False" aria-controls="collapseExample2">
+                                    خدمات
+                                </button>
+                                <div  class="services collapse" id="collapseExample2">
+                                    {% for ser in obj.service.all  %}
+                                        <figure>
+                                            <blockquote class="blockquote text-danger">
+                                                <p>{{ ser.get_define_services_display }} </p>
+                                            </blockquote>
+                                            <figcaption class="blockquote-footer text-primary">
+                                                {{ ser.date|date:'y/m/d'}}
+                                            </figcaption>
+                                        </figure>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </td>
                         <td>
                             <a class="btn btn-info" href="{% url "accounts:pay_render_pdf" pk=obj.id %}">
                                 چاپ فاکتور

@@ -1,13 +1,9 @@
 from datetime import datetime, date
-import cgi
 from django.template.loader import get_template
-from django.views.generic import ListView
-from django.views import View
 from django.contrib.auth import logout, login, authenticate
 from django.http import HttpResponseRedirect, FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.utils import timezone
 from xhtml2pdf import pisa
 from accounts.forms import EmployeeForm, ProjectForm, NewUser, PayForm, SearchForm
 from accounts.models import employee, project, payment
@@ -15,16 +11,9 @@ from works.models import Services
 
 
 
-
-
-
-
-########### Home Page #############
-from works.views import Servicelist
-
-
 def index(request):
     return render(request, 'accounts/index.html', context={})
+
 
 ######## Registration Page  ########
 
@@ -74,14 +63,6 @@ def Login(request):
             else:
                 return HttpResponseRedirect(reverse(viewname='index'))
             pass
-        # else:
-        #     os.remove(path)
-        #     givcap()
-        #     status = 0
-        #     context = {
-        #         'error': 'wrong captcha'
-        #     }
-        # pass
     return render(request, "accounts/login.html", context)
 
 
@@ -187,7 +168,7 @@ def NewPayment(request, project_id):
         pass
     else:
         pay = PayForm(initial={'project': project_id})
-        pay.fields['service'].queryset = Services.objects.filter(project_id=project_id)
+        pay.fields['service'].queryset = Services.objects.filter(project_id=project_id, payed=False)
         context = {
             'pay': pay,
             'today': today,
@@ -209,8 +190,11 @@ def Paymentlist(request):
         if search_box.cleaned_data['max_value']:
             pay = pay.filter(value__lte=search_box.cleaned_data['max_value'])
     pay_c = pay.count()
+    pay.order_by('date').reverse()
+    # services = pay.service.all()
     context = {
         'pay': pay,
+        # 'services': services,
         'pay_c': pay_c,
         'search_box': search_box
     }

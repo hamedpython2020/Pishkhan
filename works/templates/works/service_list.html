@@ -40,8 +40,8 @@
                 </thead>
                 <tbody>
                 {% for obj in service %}
-                    <tr>
-                        <th scope="row">{{ obj.id }}</th>
+                    <tr class="{% if obj.payed == 1 %} table-success  {% endif %}">
+                        <th scope="row"></th>
                         <td>{{ obj.get_define_services_display }} </td>
                         <td>{{ obj.cost_services }}</td>
                         <td>{{ obj.description|truncatechars:30 }}</td>
@@ -57,4 +57,26 @@
         </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    var table = document.getElementsByTagName('table')[0],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
+}
+</script>
+        <script>
+    var table = document.getElementsByTagName('table')[1],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
+}
+</script>
+
 {% endblock %}

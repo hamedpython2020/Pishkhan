@@ -148,3 +148,9 @@ thierd_part{
     text-overflow: initial;
 
 }
+
+.services{
+    max-height:65px;
+    overflow: auto;
+    text-overflow: initial
+}

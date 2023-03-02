@@ -55,7 +55,7 @@ def NewService(request, project_id):
 
 def Servicelist(request):
     search_box = SearchForm(request.GET)
-    service = Services.objects.all().order_by('date')
+    service = Services.objects.all().order_by('date').reverse()
     if search_box.is_valid():
         if search_box.cleaned_data['code_p']:
             service = service.filter(project__code_p__contains=search_box.cleaned_data['code_p'])
