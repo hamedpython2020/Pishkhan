@@ -1,12 +1,7 @@
-import io
-import os
 from datetime import datetime, date
 import cgi
-from io import BytesIO, StringIO
-from django.template import Context
 from django.template.loader import get_template
 from django.views.generic import ListView
-from jalali_date import datetime2jalali, date2jalali
 from django.views import View
 from django.contrib.auth import logout, login, authenticate
 from django.http import HttpResponseRedirect, FileResponse, HttpResponse
