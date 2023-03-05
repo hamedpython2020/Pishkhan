@@ -23,4 +23,21 @@
             </a>
         </div>
     </div>
+    <div class="row m-3 p-3  bg-danger main-div justify-content-between">
+        {% if user.is_authenticated %}
+         <div class="col-md-4 rounded mx-3 my-2 bg-warning">
+             <form method="POST" action="#" class=" m-2 bg-secondary p-2 form text-dark rounded border row">{% csrf_token %}
+                 <label for="{{ form.note.label }}" class=" py-2 h4 text-center">
+                     {{ form.note.label }}  :
+                 </label>
+{#                 <div class="col-md-6">#}
+                     {{ form.note }}
+{#                 </div>#}
+                 <button type="submit" class="btn btn-primary">ثبت</button>
+             </form>
+         </div>
+        {% endif %}
+         <div class="col-md-3 mx-3 bg-warning my-2">2</div>
+         <div class="col-md-3 mx-3 bg-warning my-2">3</div>
+    </div>
 {% endblock %}

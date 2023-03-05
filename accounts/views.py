@@ -1,21 +1,41 @@
-from datetime import datetime, date
+from datetime import date
+
+from django.contrib.auth.decorators import login_required
 from django.template.loader import get_template
 from django.contrib.auth import logout, login, authenticate
-from django.http import HttpResponseRedirect, FileResponse, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from xhtml2pdf import pisa
-from accounts.forms import EmployeeForm, ProjectForm, NewUser, PayForm, SearchForm
+from accounts.forms import EmployeeForm, ProjectForm, PayForm, SearchForm, NoteForm
 from accounts.models import employee, project, payment
 from works.models import Services
 
 
-
 def index(request):
-    return render(request, 'accounts/index.html', context={})
+    if request.method == 'POST' and request.user is not None:
+        form = NoteForm(request.POST)
+        user = request.user
+        emp = employee.objects.get(user=user)
+        emp.note = request.POST.get('note')
+        emp.save()
+        pass
+    else:
+        user = request.user
+        if request.user.is_authenticated == True:
+            user = request.user
+            emp = employee.objects.get(user=user)
+            form = NoteForm(initial={'note': emp.note})
+        else:
+            form = NoteForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/index.html', context)
 
 
-######## Registration Page  ########
+# Registration Page  ########
 
 
 # def Signup(request):
@@ -73,8 +93,8 @@ def Logout(request):
     return HttpResponseRedirect(reverse('accounts:login'))
 
 
-########## Model Page ##########
-
+# Model Page ##########
+@login_required
 def Newemployee(request):
     if request.user == None:
         return HttpResponseRedirect(reverse('login'))
@@ -97,6 +117,7 @@ def Newemployee(request):
         return render(request, 'accounts/new_employee.html', context)
 
 
+@login_required
 def Employee(request, employee_id):
     obj = employee.objects.get(pk=employee_id)
     context = {
@@ -104,13 +125,13 @@ def Employee(request, employee_id):
     }
     return render(request, 'accounts/employee.html', context)
 
-
+@login_required
 def Newproject(request):
     if request.method == 'POST':
         project = ProjectForm(request.POST)
         if project.is_valid():
             project.save()
-            return HttpResponseRedirect(reverse('Newservice', current_app='works'))
+            return HttpResponseRedirect(reverse('works:services_new', current_app='works'))
     else:
         project = ProjectForm()
         context = {
@@ -145,7 +166,7 @@ def Project(request, project_id):
     }
     return render(request, 'accounts/project.html', context)
 
-
+@login_required
 def NewPayment(request, project_id):
     today = date.today()
     if request.method == 'POST':
@@ -175,7 +196,7 @@ def NewPayment(request, project_id):
         }
     return render(request, 'accounts/payment.html', context)
 
-
+@login_required
 def Paymentlist(request):
 
     search_box = SearchForm(request.GET)
@@ -200,7 +221,7 @@ def Paymentlist(request):
     }
     return render(request, 'accounts/payment_list.html', context)
 
-
+@login_required
 def Projectdetail(request, project_id):
     proj = project.objects.get(pk=project_id)
     pay = payment.objects.all()
@@ -220,7 +241,7 @@ def Projectdetail(request, project_id):
 
 ##############################################
 
-
+@login_required
 def pay_render_pdf(request, *args, **kwargs):
     pk = kwargs.get('pk')
     pay = get_object_or_404(payment, pk=pk)

@@ -154,3 +154,12 @@ thierd_part{
     overflow: auto;
     text-overflow: initial
 }
+
+.textinput{
+    text-align:right;
+    width: 300px;
+    height: 500px;
+    max-height: 300px;
+    overflow: auto;
+    text-overflow: initial
+}

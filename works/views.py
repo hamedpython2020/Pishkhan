@@ -26,7 +26,7 @@ def Docupload(request):
         }
     return render(request, 'works/upload_doc.html', context)
 
-
+@login_required
 def NewService(request, project_id):
     if request.method == 'POST':
         service = ServicesForm(request.POST, request.FILES)
@@ -52,7 +52,7 @@ def NewService(request, project_id):
         }
     return render(request, 'works/service_new.html', context)
 
-
+@login_required
 def Servicelist(request):
     search_box = SearchForm(request.GET)
     service = Services.objects.all().order_by('date').reverse()

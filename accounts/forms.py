@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from datetime import date, datetime
 
 from django.utils import timezone
+from rest_framework.mixins import UpdateModelMixin
 
 from accounts.models import employee, payment, project
 from works.models import Services
@@ -18,6 +19,13 @@ class EmployeeForm(forms.ModelForm):
         exclude = ['user']
         pass
     pass
+
+
+
+class NoteForm(forms.Form):
+    
+    note = forms.CharField(label='یادداشت', widget=forms.Textarea)
+
 
 
 class PayForm(forms.ModelForm):

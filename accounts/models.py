@@ -18,6 +18,7 @@ class employee(models.Model):
     id_code = models.CharField("کدملی", null=False, blank=False, max_length=10, default=1010)
     l_name = models.CharField("نام خانوادگی", max_length=30, null=False, auto_created=False)
     join_time = models.DateTimeField("زمان عضویت", auto_now_add=True)
+    note = models.TextField('یادداشت ها', blank=False, null=True, default=' - ')
 
     def user_directory_path(instance, filename):
         return 'user/employees/{0}_{1}'.format(instance.id_code, filename)
