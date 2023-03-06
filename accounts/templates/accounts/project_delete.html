@@ -1,0 +1,30 @@
+{% extends "accounts/Base_template_accounts.html" %}
+
+{% block title %}
+    حذف پروژه
+{% endblock %}
+
+{% block main-content %}
+    <div class="row text-center d-flex justify-content-center">
+        <div class="col-md-6 alert alert-danger">
+           آیا از حذف پروژه اطمینان دارید  ؟؟
+        <br><hr>
+            {% if error %}
+                <span class="alert alert-warning"> {{ error }} </span>
+            {% endif %}
+        </div>
+        <form class="col-md-7 row d-flex justify-content-between rounded bg-dark p-5" method="post">{% csrf_token %}
+            <a href="{% url "accounts:project_list" %}" class="btn btn-danger col-md-3">لغو عملیات</a>
+            <button type="submit" class="btn btn-success col-md-3">حذف پروژه</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    function close_window() {
+    close();
+
+}
+</script>
+{% endblock %}

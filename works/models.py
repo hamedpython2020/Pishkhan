@@ -31,7 +31,7 @@ class Services(models.Model):
     payed = models.BooleanField(verbose_name='تسویه', default=False)
 
     def __str__(self):
-        return "{1}-->{0}".format(self.project, self.define_services)
+        return self.date.strftime("%Y/%m/%d") + " -- " + self.get_define_services_display()
     pass
 
 

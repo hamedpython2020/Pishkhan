@@ -66,9 +66,12 @@
                                 </a>
                                 <a class="btn btn-success" href="{% url "works:services_new" project_id=obj.id %}">
                                     ثبت درخواست
-                                </a>
-                                <a class="btn btn-warning" href="{% url "accounts:new_payment" project_id=obj.id %}">
+                                </a><br>
+                                <a class="btn btn-warning" target="popup-example" href="{% url "accounts:new_payment" project_id=obj.id %}">
                                      پرداخت
+                                </a>
+                                <a class="btn btn-danger my-2" target="popup-example" href="{% url "accounts:project_delete" project_id=obj.id %}">
+                                     حذف
                                 </a>
                             </td>
                         </tr>
@@ -101,6 +104,10 @@ for (var i = 1, len = rows.length; i < len; i++) {
 for (var i = 1, len = rows.length; i < len; i++) {
   rows[i].children[0][text] = i + '  ' + rows[i].children[0][text];
 }
+function close_window() {
+    close();
+}
 </script>
+
 
 {% endblock %}

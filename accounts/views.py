@@ -130,8 +130,8 @@ def Newproject(request):
     if request.method == 'POST':
         project = ProjectForm(request.POST)
         if project.is_valid():
-            project.save()
-            return HttpResponseRedirect(reverse('works:services_new', current_app='works'))
+            newproj = project.save()
+            return HttpResponseRedirect(reverse('accounts:project_list'))
     else:
         project = ProjectForm()
         context = {
@@ -262,4 +262,19 @@ def pay_render_pdf(request, *args, **kwargs):
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
+
+def delete_project(request, project_id):
+    if request.method == 'POST':
+        proj = project.objects.get(id=project_id)
+        try:
+            proj.delete()
+            return HttpResponseRedirect(reverse('accounts:project_list'))
+        except:
+            context = {
+                'error': 'شما نمیتوانید این پروژه را حذف کنید'
+            }
+            return render(request, 'accounts/project_delete.html', context)
+    else:
+        return render(request, 'accounts/project_delete.html',)
+    pass
 

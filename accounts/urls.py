@@ -14,6 +14,7 @@ urlpatterns = [
     path('project/list/', views.Projectlist, name='project_list'),
     path('project/<int:project_id>/', views.Project, name='project'),
     path('project/<int:project_id>/detail', views.Projectdetail, name='project_detail'),
+    path('project/<int:project_id>/delete', views.delete_project, name='project_delete'),
     path('login/', views.Login, name='login'),
     path('logout/', views.Logout, name='logout'),
     path('payment/pdf/<pk>', views.pay_render_pdf, name="pay_render_pdf"),

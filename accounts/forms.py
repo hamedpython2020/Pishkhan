@@ -78,4 +78,3 @@ class SearchForm(forms.Form):
 
     pass
 
-
