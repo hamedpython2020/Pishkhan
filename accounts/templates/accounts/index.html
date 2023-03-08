@@ -7,6 +7,48 @@
 
 
 {% block main-content %}
+{#    ##### قسمت بنر ##############}
+    <div class="row text-center justify-content-center">
+        <div id="carouselExampleCaptions" class=" col-10 bg-secondary carousel slide m-3 " data-bs-ride="false">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner rounded p-2 ">
+                <div class="carousel-item text-center rounded active">
+                    <img src="{% static "accounts/icons/logo.jpg" %}" class="d-block" alt="office picture" width="1090.72px" height="400px">
+                    <div class="carousel-caption d-none text-primary d-md-block">
+                        <h5>دفتر پیشخوان  467   </h5>
+                        <p>شماره : 05136020480 و 09155078821.</p>
+                    </div>
+                </div>
+                <div class="carousel-item rounded p-2">
+                    <img src="{% static "accounts/picture/مناطق.jpg" %}" class="d-block w-100" alt="..." width="1090.72px" height="400px">
+                    <div class="carousel-caption text-info d-none d-md-block">
+                        <h5> مناطق شهرداری های مشهد</h5>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="carousel-item rounded p-2">
+                    <img src="{% static "accounts/picture/محل دفتر.jpg" %}" class="d-block w-100" alt="..." width="1090.72px" height="400px">
+                    <div class="carousel-caption text-danger d-none d-md-block">
+                        <h5>آدرس دفتر</h5>
+                        <p>خیابان شاهد بین شاهد 69 و 61 دفتر پیشخوان نظام مهندسی</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-ne    xt-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+{#     ##### قسمت دسترسی سریع ############}
     <div class="row justify-content-center bg-secondary rounded" >
         <div class="bg-dark p-5 m-5 w-75 flex-row rounded">
             <a href="{% url "accounts:project_list" %}" class="btn btn-info mx-5">
@@ -23,21 +65,33 @@
             </a>
         </div>
     </div>
+{#    ##### قسمت اصلی صفحه #############}
     <div class="row m-3 p-3  bg-danger main-div justify-content-between">
         {% if user.is_authenticated %}
-         <div class="col-md-4 rounded mx-3 my-2 bg-warning">
+         <div class="col-md-3 rounded mx-1 my-2 bg-warning">
              <form method="POST" action="#" class=" m-2 bg-secondary p-2 form text-dark rounded border row">{% csrf_token %}
                  <label for="{{ form.note.label }}" class=" py-2 h4 text-center">
                      {{ form.note.label }}  :
                  </label>
-{#                 <div class="col-md-6">#}
                      {{ form.note }}
-{#                 </div>#}
                  <button type="submit" class="btn btn-primary">ثبت</button>
              </form>
          </div>
         {% endif %}
-         <div class="col-md-3 mx-3 bg-warning my-2">2</div>
-         <div class="col-md-3 mx-3 bg-warning my-2">3</div>
+         <div class="col-md-8 row mx-2 justify-content-between bg-warning text-dark my-2">
+             {% for obj in employees %}
+                 <div class="card m-1 p-3" style="width: 18rem;">
+                     <img src="{{ obj.picture.path }}" class="card-img-top" alt="مشکلی در بارگذاری به وجود آمده"><hr>
+                     <div class="card-body">
+                         <h5 class="card-title">{{ obj.l_name }}</h5>
+                         <pre class="card-text">
+
+                         </pre><hr>
+                         <a href="{% url "accounts:employee" employee_id=obj.id %}" class="btn btn-primary ">صفحه شخصی</a>
+                     </div>
+                 </div>
+             {% endfor %}
+             </div>
+         </div>
     </div>
 {% endblock %}

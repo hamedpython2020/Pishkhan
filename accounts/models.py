@@ -36,7 +36,7 @@ class project(models.Model):
         verbose_name = 'پروژه'
         verbose_name_plural = 'پروژه'
 
-    code_p = models.CharField("کد نوسازی", null=False, default='0-0-0-0-0-0', max_length=50)
+    code_p = models.CharField("کد نوسازی", null=False, default='', max_length=50)
     code_erg = models.CharField("کد ارجاع", null=False, default='0', max_length=50)
     add_time = models.DateTimeField('زمان ثبت', auto_now_add=True)
     bill = models.IntegerField('صورتحساب', null=False, default=0)

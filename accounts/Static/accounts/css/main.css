@@ -163,3 +163,10 @@ thierd_part{
     overflow: auto;
     text-overflow: initial
 }
+
+.main-banner{
+    width:500px;
+    height:400px;
+    margin : 50px;
+    padding: 30px;
+}

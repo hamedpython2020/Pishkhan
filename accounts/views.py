@@ -1,3 +1,4 @@
+import datetime
 from datetime import date
 
 from django.contrib.auth.decorators import login_required
@@ -13,6 +14,7 @@ from works.models import Services
 
 
 def index(request):
+    employees = employee.objects.all()
     if request.method == 'POST' and request.user is not None:
         form = NoteForm(request.POST)
         user = request.user
@@ -30,7 +32,8 @@ def index(request):
             form = NoteForm()
 
     context = {
-        'form': form
+        'form': form,
+        'employees': employees,
     }
     return render(request, 'accounts/index.html', context)
 
@@ -195,7 +198,6 @@ def NewPayment(request, project_id):
             'today': today,
         }
     return render(request, 'accounts/payment.html', context)
-
 @login_required
 def Paymentlist(request):
 
@@ -220,7 +222,6 @@ def Paymentlist(request):
         'search_box': search_box
     }
     return render(request, 'accounts/payment_list.html', context)
-
 @login_required
 def Projectdetail(request, project_id):
     proj = project.objects.get(pk=project_id)
@@ -240,13 +241,18 @@ def Projectdetail(request, project_id):
     return render(request, 'accounts/project_detail.html', context)
 
 ##############################################
-
 @login_required
 def pay_render_pdf(request, *args, **kwargs):
     pk = kwargs.get('pk')
     pay = get_object_or_404(payment, pk=pk)
-    template_path = 'pay_render_pdf.html'
-    context = {'pay': pay}
+    services = pay.service.all()
+    # template_path = 'pay_render_pdf.html'
+    context = {
+        'pay': pay,
+        'services': services,
+        'date': datetime.date.today().strftime('%Y/%m/%d')
+               }
+
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'

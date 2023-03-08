@@ -44,6 +44,10 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = project
         exclude = []
+        widgets = {
+            'code_p': forms.TextInput(attrs={'placeholder': '0-0-0-0-0-0-0-0'}),
+            'code_erg': forms.TextInput(attrs={'placeholder': '0-0-0-0-0-0-0-0'})
+        }
         pass
     pass
 
